@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(schema = "proyectorium", name = "ticket")
-
 @XmlRootElement
 public class TicketEntity implements Serializable {
     
@@ -87,7 +86,7 @@ public class TicketEntity implements Serializable {
     public void setNumPeople(Integer numPeople) {
         this.numPeople = numPeople;
     }
-
+  
     public MovieEntity getMovie() {
         return movie;
     }
