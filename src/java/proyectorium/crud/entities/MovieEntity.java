@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(schema = "proyectorium", name = "movie")
 @XmlRootElement
-public class Movie implements Serializable {
+public class MovieEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class Movie implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "provider")
-    private Provider provider;
+    private ProviderEntity provider;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -63,7 +63,7 @@ public class Movie implements Serializable {
     )
     private List<CategoryEntity> categories;
 
-    public Movie() {
+    public MovieEntity() {
 
     }
 
@@ -123,11 +123,11 @@ public class Movie implements Serializable {
         this.movieImage = movieImage;
     }
 
-    public Provider getProvider() {
+    public ProviderEntity getProvider() {
         return provider;
     }
 
-    public void setProvider(Provider provider) {
+    public void setProvider(ProviderEntity provider) {
         this.provider = provider;
     }
 

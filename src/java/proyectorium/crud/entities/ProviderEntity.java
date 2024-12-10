@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name="provider", schema="proyectorium")
 @XmlRootElement
-public class Provider implements Serializable {
+public class ProviderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,7 +44,7 @@ public class Provider implements Serializable {
     private Float price;
 
     
-    public Provider(){
+    public ProviderEntity(){
     
     }
     
