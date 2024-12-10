@@ -45,7 +45,7 @@ public class TicketEntity implements Serializable {
     private MovieEntity movie;
     
     @ManyToOne
-    @JoinColumn(name = "User")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Lob

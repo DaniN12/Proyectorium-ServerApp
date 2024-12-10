@@ -5,7 +5,6 @@
  */
 package proyectorium.crud.services;
 
-import proyectorium.crud.entities.ProviderEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,33 +18,34 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import proyectorium.crud.entities.UserEntity;
 
 /**
  *
  * @author 2dam
  */
 @Stateless
-@Path("proyectorium.crud.entities.provider")
-public class ProviderFacadeREST extends AbstractFacade<ProviderEntity> {
+@Path("proyectorium.crud.entities.userentity")
+public class UserEntityFacadeREST extends AbstractFacade<UserEntity> {
 
     @PersistenceContext(unitName = "CRUDProyectoriumPU")
     private EntityManager em;
 
-    public ProviderFacadeREST() {
-        super(ProviderEntity.class);
+    public UserEntityFacadeREST() {
+        super(UserEntity.class);
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML})
-    public void create(ProviderEntity entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void create(UserEntity entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML})
-    public void edit(@PathParam("id") Long id, ProviderEntity entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Long id, UserEntity entity) {
         super.edit(entity);
     }
 
@@ -57,22 +57,22 @@ public class ProviderFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML})
-    public ProviderEntity find(@PathParam("id") Long id) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public UserEntity find(@PathParam("id") Long id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML})
-    public List<ProviderEntity> findAll() {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<UserEntity> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML})
-    public List<ProviderEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<UserEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

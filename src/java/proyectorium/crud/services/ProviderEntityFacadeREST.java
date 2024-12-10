@@ -5,7 +5,7 @@
  */
 package proyectorium.crud.services;
 
-import proyectorium.crud.entities.ProviderEnitty;
+import proyectorium.crud.entities.ProviderEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -26,26 +26,26 @@ import javax.ws.rs.core.MediaType;
  */
 @Stateless
 @Path("proyectorium.crud.entities.provider")
-public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEnitty> {
+public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @PersistenceContext(unitName = "CRUDProyectoriumPU")
     private EntityManager em;
 
     public ProviderEntityFacadeREST() {
-        super(ProviderEnitty.class);
+        super(ProviderEntity.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML})
-    public void create(ProviderEnitty entity) {
+    public void create(ProviderEntity entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML})
-    public void edit(@PathParam("id") Long id, ProviderEnitty entity) {
+    public void edit(@PathParam("id") Long id, ProviderEntity entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEnitty> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML})
-    public ProviderEnitty find(@PathParam("id") Long id) {
+    public ProviderEntity find(@PathParam("id") Long id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML})
-    public List<ProviderEnitty> findAll() {
+    public List<ProviderEntity> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML})
-    public List<ProviderEnitty> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<ProviderEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
@@ -87,5 +87,5 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEnitty> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

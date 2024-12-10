@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dani
  */
 @Entity
-@Table(name="provider", schema="proyectorium")
+@Table(name = "provider", schema = "proyectorium")
 @XmlRootElement
 public class ProviderEntity implements Serializable {
 
@@ -30,7 +30,7 @@ public class ProviderEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer idProvider;
-  
+
     private String email;
 
     private String name;
@@ -45,11 +45,10 @@ public class ProviderEntity implements Serializable {
 
     private Float price;
 
-    
-    public ProviderEntity(){
-    
+    public ProviderEntity() {
+
     }
-    
+
     public Integer getIdProvider() {
         return idProvider;
     }
@@ -113,11 +112,8 @@ public class ProviderEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
-    
-}
-     @Override
+
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -141,5 +137,5 @@ public class ProviderEntity implements Serializable {
     public String toString() {
         return "proyectorium.crud.entities.ProviderEntity[ id=" + id + " ]";
     }
-    
+
 }
