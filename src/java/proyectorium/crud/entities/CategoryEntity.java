@@ -107,7 +107,7 @@ public class CategoryEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "aus.tartangalh.crud.entities.CategoryEntity[ id=" + id + " ]";
+        return "proyectorium.CategoryEntity[ id=" + id + " ]";
     }
     
 }
