@@ -18,7 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import proyectorium.crud.entities.Movie;
+import proyectorium.crud.entities.MovieEntity;
 import proyectorium.crud.services.AbstractFacade;
 
 /**
@@ -27,26 +27,26 @@ import proyectorium.crud.services.AbstractFacade;
  */
 @Stateless
 @Path("proyectorium.crud.entities.movie")
-public class MovieFacadeREST extends AbstractFacade<Movie> {
+public class MovieFacadeREST extends AbstractFacade<MovieEntity> {
 
     @PersistenceContext(unitName = "CRUDProyectoriumPU")
     private EntityManager em;
 
     public MovieFacadeREST() {
-        super(Movie.class);
+        super(MovieEntity.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Movie entity) {
+    public void create(MovieEntity entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Movie entity) {
+    public void edit(@PathParam("id") Integer id, MovieEntity entity) {
         super.edit(entity);
     }
 
@@ -59,21 +59,21 @@ public class MovieFacadeREST extends AbstractFacade<Movie> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Movie find(@PathParam("id") Integer id) {
+    public MovieEntity find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Movie> findAll() {
+    public List<MovieEntity> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Movie> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<MovieEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

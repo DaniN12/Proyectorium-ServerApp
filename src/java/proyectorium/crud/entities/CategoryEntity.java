@@ -28,7 +28,7 @@ public class CategoryEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+     Integer id;
     
     @Lob
     private byte[] icon;
@@ -107,7 +107,7 @@ public class CategoryEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "aus.tartangalh.crud.entities.CategoryEntity[ id=" + id + " ]";
+        return "proyectorium.crud.entities.CategoryEntity[ id=" + id + " ]";
     }
     
 }
