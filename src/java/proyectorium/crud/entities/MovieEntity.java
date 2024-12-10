@@ -151,7 +151,7 @@ public class MovieEntity implements Serializable {
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
     }
-
+      
     @Override
     public int hashCode() {
         int hash = 0;
@@ -176,5 +176,4 @@ public class MovieEntity implements Serializable {
     public String toString() {
         return "proyectorium.crud.entities.MovieEntity[ id=" + id + " ]";
     }
-
 }
