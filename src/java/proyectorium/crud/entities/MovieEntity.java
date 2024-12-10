@@ -55,7 +55,7 @@ public class MovieEntity implements Serializable {
 
     @OneToMany(cascade = ALL)
     private List<TicketEntity> tickets;
-
+  
     @ManyToOne
     @JoinColumn(name = "provider")
     private ProviderEntity provider;
@@ -176,4 +176,5 @@ public class MovieEntity implements Serializable {
     public String toString() {
         return "proyectorium.crud.entities.MovieEntity[ id=" + id + " ]";
     }
+
 }
