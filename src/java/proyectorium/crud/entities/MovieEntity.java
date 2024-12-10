@@ -6,6 +6,7 @@ package proyectorium.crud.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(schema = "proyectorium", name = "movie")
 @XmlRootElement
-public class Movie implements Serializable {
+public class MovieEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,9 +53,12 @@ public class Movie implements Serializable {
     @Lob
     private byte[] movieImage;
 
+    @OneToMany(cascade = ALL)
+    private List<TicketEntity> tickets;
+
     @ManyToOne
     @JoinColumn(name = "provider")
-    private Provider provider;
+    private ProviderEntity provider;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -63,7 +68,7 @@ public class Movie implements Serializable {
     )
     private List<CategoryEntity> categories;
 
-    public Movie() {
+    public MovieEntity() {
 
     }
 
@@ -123,11 +128,19 @@ public class Movie implements Serializable {
         this.movieImage = movieImage;
     }
 
-    public Provider getProvider() {
+    public List<TicketEntity> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<TicketEntity> tickets) {
+        this.tickets = tickets;
+    }
+
+    public ProviderEntity getProvider() {
         return provider;
     }
 
-    public void setProvider(Provider provider) {
+    public void setProvider(ProviderEntity provider) {
         this.provider = provider;
     }
 
@@ -137,6 +150,31 @@ public class Movie implements Serializable {
 
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof MovieEntity)) {
+            return false;
+        }
+        MovieEntity other = (MovieEntity) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "proyectorium.crud.entities.MovieEntity[ id=" + id + " ]";
     }
 
 }

@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(schema = "proyectorium", name = "ticket")
 @XmlRootElement
-public class Ticket implements Serializable {
+public class TicketEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Ticket implements Serializable {
     
     private Integer numPeople;
 
-    public Ticket() {
+    public TicketEntity() {
         
     }
 

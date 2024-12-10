@@ -81,9 +81,6 @@ public class CategoryEntity implements Serializable {
         this.pegi = pegi;
     }
     
-    
-    
-    
 
     @Override
     public int hashCode() {
