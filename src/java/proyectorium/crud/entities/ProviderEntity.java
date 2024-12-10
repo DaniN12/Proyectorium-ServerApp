@@ -30,7 +30,7 @@ public class ProviderEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer idProvider;
-
+  
     private String email;
 
     private String name;
@@ -143,4 +143,3 @@ public class ProviderEntity implements Serializable {
     }
     
 }
-
