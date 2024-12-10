@@ -18,35 +18,34 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import proyectorium.crud.entities.Movie;
-import proyectorium.crud.services.AbstractFacade;
+import proyectorium.crud.entities.TicketEntity;
 
 /**
  *
- * @author 2dam
+ * @author kbilb
  */
 @Stateless
-@Path("proyectorium.crud.entities.movie")
-public class MovieFacadeREST extends AbstractFacade<Movie> {
+@Path("proyectorium.crud.entities.ticket")
+public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @PersistenceContext(unitName = "CRUDProyectoriumPU")
     private EntityManager em;
 
-    public MovieFacadeREST() {
-        super(Movie.class);
+    public TicketEntityFacadeREST() {
+        super(TicketEntity.class);
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Movie entity) {
+    @Consumes({MediaType.APPLICATION_XML})
+    public void create(TicketEntity entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Movie entity) {
+    @Consumes({MediaType.APPLICATION_XML})
+    public void edit(@PathParam("id") Integer id, TicketEntity entity) {
         super.edit(entity);
     }
 
@@ -58,22 +57,22 @@ public class MovieFacadeREST extends AbstractFacade<Movie> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Movie find(@PathParam("id") Integer id) {
+    @Produces({MediaType.APPLICATION_XML})
+    public TicketEntity find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Movie> findAll() {
+    @Produces({MediaType.APPLICATION_XML})
+    public List<TicketEntity> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Movie> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Produces({MediaType.APPLICATION_XML})
+    public List<TicketEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
