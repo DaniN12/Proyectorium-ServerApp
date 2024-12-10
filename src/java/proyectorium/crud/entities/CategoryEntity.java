@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ruth
  */
 @Entity
-@Table(schema="hibernate_prueba", name="Category")
+@Table(schema="proyectorium", name="Category")
 @XmlRootElement
 public class CategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dani
  */
 @Entity
-@Table(name="proyectorum", schema="provider")
+@Table(name="provider", schema="proyectorium")
 @XmlRootElement
 public class Provider implements Serializable {
 

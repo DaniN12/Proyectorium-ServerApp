@@ -7,6 +7,7 @@ package proyectorium.crud.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class Ticket implements Serializable {
     private Integer id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime dateTime;
+    private Date buyDate;
     
     private Float price;
     
@@ -48,12 +49,12 @@ public class Ticket implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public Date getBuyDate() {
+        return buyDate;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setBuyDate(Date buyDate) {
+        this.buyDate = buyDate;
     }
 
     public Float getPrice() {

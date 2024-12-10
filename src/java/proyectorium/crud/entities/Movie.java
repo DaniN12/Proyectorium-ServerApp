@@ -5,13 +5,19 @@ package proyectorium.crud.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,6 +50,18 @@ public class Movie implements Serializable {
 
     @Lob
     private byte[] movieImage;
+
+    @ManyToOne
+    @JoinColumn(name = "provider")
+    private Provider provider;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "movie_category", schema = "proyectorium",
+            joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id")
+    )
+    private List<CategoryEntity> categories;
 
     public Movie() {
 
@@ -103,6 +121,22 @@ public class Movie implements Serializable {
 
     public void setMovieImage(byte[] movieImage) {
         this.movieImage = movieImage;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public List<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryEntity> categories) {
+        this.categories = categories;
     }
 
 }
