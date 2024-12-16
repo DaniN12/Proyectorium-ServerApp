@@ -6,6 +6,7 @@ package proyectorium.crud.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,6 +45,9 @@ public class ProviderEntity implements Serializable {
     private Date contactEnd;
 
     private Float price;
+    
+    @OneToMany(cascade = ALL)
+    private List<MovieEntity> movies;
 
     public ProviderEntity() {
 
@@ -112,6 +116,15 @@ public class ProviderEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<MovieEntity> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<MovieEntity> movies) {
+        this.movies = movies;
+    }
+    
 
     @Override
     public int hashCode() {

@@ -6,6 +6,7 @@
 package proyectorium.crud.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,6 +37,9 @@ public class CategoryEntity implements Serializable {
     private byte[] icon;
     private String name;
     private String description;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
     
     @Enumerated(EnumType.STRING)
     private Pegi pegi;
@@ -80,7 +86,14 @@ public class CategoryEntity implements Serializable {
     public void setPegi(Pegi pegi) {
         this.pegi = pegi;
     }
-    
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }    
 
     @Override
     public int hashCode() {
