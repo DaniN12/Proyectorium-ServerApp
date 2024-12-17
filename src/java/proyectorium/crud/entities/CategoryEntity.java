@@ -50,9 +50,6 @@ public class CategoryEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private Pegi pegi;
 
-    @ManyToMany(mappedBy = "categories")
-    private List<MovieEntity> movies;
-
     public CategoryEntity() {
 
     }
@@ -103,14 +100,6 @@ public class CategoryEntity implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public List<MovieEntity> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<MovieEntity> movies) {
-        this.movies = movies;
     }
 
     @Override

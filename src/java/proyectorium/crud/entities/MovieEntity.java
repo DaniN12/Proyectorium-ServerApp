@@ -19,6 +19,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,6 +33,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(schema = "proyectorium", name = "movie")
+
+@NamedQueries({
+@NamedQuery(
+            name= "listByReleaseDate",
+            query= "SELECT * FROM movie ORDER BY releaseDate ASC"
+    ),
+@NamedQuery(
+            name= "listByProvider",
+            query= "SELECT * FROM movie WHERE provider = :provider"
+    ),
+@NamedQuery(
+            name= "listByMovieHour",
+            query= "SELECT * FROM movie WHERE movieHour = :movieHour"
+    )
+})
+
 @XmlRootElement
 public class MovieEntity implements Serializable {
 
