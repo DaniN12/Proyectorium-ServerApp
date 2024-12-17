@@ -47,6 +47,7 @@ public class CategoryEntity implements Serializable {
     public CategoryEntity(){
         
     }
+
     public Integer getId() {
         return id;
     }
@@ -79,6 +80,14 @@ public class CategoryEntity implements Serializable {
         this.description = description;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Pegi getPegi() {
         return pegi;
     }
@@ -94,6 +103,7 @@ public class CategoryEntity implements Serializable {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }    
+
 
     @Override
     public int hashCode() {

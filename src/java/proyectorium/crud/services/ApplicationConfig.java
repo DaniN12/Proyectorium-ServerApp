@@ -35,6 +35,7 @@ public class ApplicationConfig extends Application {
         resources.add(proyectorium.crud.services.ProviderEntityFacadeREST.class);
         resources.add(proyectorium.crud.services.TicketEntityFacadeREST.class);
         resources.add(proyectorium.crud.services.UserEntityFacadeREST.class);
+
     }
     
 }
