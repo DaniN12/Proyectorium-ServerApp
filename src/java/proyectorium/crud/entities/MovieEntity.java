@@ -176,4 +176,5 @@ public class MovieEntity implements Serializable {
     public String toString() {
         return "proyectorium.crud.entities.MovieEntity[ id=" + id + " ]";
     }
+
 }
