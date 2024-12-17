@@ -32,11 +32,8 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(proyectorium.crud.services.CategoryEntityFacadeREST.class);
         resources.add(proyectorium.crud.services.MovieEntityFacadeREST.class);
-        resources.add(proyectorium.crud.services.MovieFacadeREST.class);
         resources.add(proyectorium.crud.services.ProviderEntityFacadeREST.class);
-        resources.add(proyectorium.crud.services.ProviderFacadeREST.class);
         resources.add(proyectorium.crud.services.TicketEntityFacadeREST.class);
-        resources.add(proyectorium.crud.services.TicketFacadeREST.class);
     }
     
 }
