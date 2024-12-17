@@ -89,6 +89,14 @@ public class CategoryEntity implements Serializable {
         this.description = description;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Pegi getPegi() {
         return pegi;
     }
@@ -112,6 +120,7 @@ public class CategoryEntity implements Serializable {
     public void setMovies(List<MovieEntity> movies) {
         this.movies = movies;
     }
+
 
     @Override
     public int hashCode() {
