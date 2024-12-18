@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(schema = "proyectorium", name = "movie")
-
+/*
 @NamedQueries({
 @NamedQuery(
             name= "listByReleaseDate",
@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
             name= "listByMovieHour",
             query= "SELECT * FROM movie WHERE movieHour = :movieHour"
     )
-})
+})*/
 
 @XmlRootElement
 public class MovieEntity implements Serializable {
