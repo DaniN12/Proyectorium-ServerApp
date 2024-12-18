@@ -20,68 +20,71 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import proyectorium.crud.entities.MovieEntity;
+import proyectorium.crud.entities.UserEntity;
 import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
 import proyectorium.crud.exceptions.ReadException;
 import proyectorium.crud.exceptions.UpdateException;
-import proyectorium.crud.services.AbstractFacade;
 
 /**
  *
  * @author 2dam
  */
 @Stateless
-@Path("proyectorium.crud.entities.movie")
-public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
+@Path("proyectorium.crud.entities.userentity")
+public class UserEntityFacadeREST extends AbstractFacade<UserEntity> {
 
     @PersistenceContext(unitName = "CRUDProyectoriumPU")
     private EntityManager em;
 
-    public MovieEntityFacadeREST() {
-        super(MovieEntity.class);
+    public UserEntityFacadeREST() {
+        super(UserEntity.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML})
-    public void create(MovieEntity entity) {
+    public void create(UserEntity entity) {
         try {
             super.create(entity);
         } catch (CreateException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML})
-    public void edit(@PathParam("id") Integer id, MovieEntity entity) {
+    public void edit(@PathParam("id") Long id, UserEntity entity) {
         try {
             super.edit(entity);
         } catch (UpdateException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) throws ReadException {
+    public void remove(@PathParam("id") Long id) {
         try {
-            super.remove(super.find(id));
-        } catch (DeleteException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                super.remove(super.find(id));
+            } catch (DeleteException ex) {
+                Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ReadException ex) {
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML})
-    public MovieEntity find(@PathParam("id") Integer id) {
+    public UserEntity find(@PathParam("id") Long id) {
         try {
             return super.find(id);
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -89,11 +92,11 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML})
-    public List<MovieEntity> findAll() {
+    public List<UserEntity> findAll() {
         try {
             return super.findAll();
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -101,11 +104,11 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML})
-    public List<MovieEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<UserEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         try {
             return super.findRange(new int[]{from, to});
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -117,7 +120,7 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
         try {
             return String.valueOf(super.count());
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

@@ -6,6 +6,7 @@ package proyectorium.crud.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dani
  */
 @Entity
-@Table(name="provider", schema="proyectorium")
+@Table(name = "provider", schema = "proyectorium")
 @XmlRootElement
 public class ProviderEntity implements Serializable {
 
@@ -30,7 +31,7 @@ public class ProviderEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer idProvider;
-  
+
     private String email;
 
     private String name;
@@ -44,12 +45,14 @@ public class ProviderEntity implements Serializable {
     private Date contactEnd;
 
     private Float price;
+    
+    @OneToMany(cascade = ALL)
+    private List<MovieEntity> movies;
 
-    
-    public ProviderEntity(){
-    
+    public ProviderEntity() {
+
     }
-    
+
     public Integer getIdProvider() {
         return idProvider;
     }
@@ -113,11 +116,17 @@ public class ProviderEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<MovieEntity> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<MovieEntity> movies) {
+        this.movies = movies;
+    }
     
-    
-    
-}
-     @Override
+
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -141,5 +150,5 @@ public class ProviderEntity implements Serializable {
     public String toString() {
         return "proyectorium.crud.entities.ProviderEntity[ id=" + id + " ]";
     }
-    
+
 }
