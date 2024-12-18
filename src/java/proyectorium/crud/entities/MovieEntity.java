@@ -6,6 +6,7 @@ package proyectorium.crud.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -35,17 +36,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(schema = "proyectorium", name = "movie")
 
 @NamedQueries({
-@NamedQuery(
-            name= "listByReleaseDate",
-            query= "SELECT * FROM movie ORDER BY releaseDate ASC"
+    @NamedQuery(
+            name = "listByReleaseDate",
+            query = "SELECT m FROM MovieEntity m ORDER BY m.releaseDate ASC"
     ),
-@NamedQuery(
-            name= "listByProvider",
-            query= "SELECT * FROM movie WHERE provider = :provider"
+    @NamedQuery(
+            name = "listByProvider",
+            query = "SELECT m FROM MovieEntity m WHERE m.provider.name = :provider"
     ),
-@NamedQuery(
-            name= "listByMovieHour",
-            query= "SELECT * FROM movie WHERE movieHour = :movieHour"
+    @NamedQuery(
+            name = "listByMovieHour",
+            query = "SELECT m FROM MovieEntity m WHERE m.movieHour = :movieHour"
     )
 })
 
@@ -71,14 +72,14 @@ public class MovieEntity implements Serializable {
     @Lob
     private byte[] movieImage;
 
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     private List<TicketEntity> tickets;
 
     @ManyToOne
     @JoinColumn(name = "provider")
     private ProviderEntity provider;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "movie_category", schema = "proyectorium",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
