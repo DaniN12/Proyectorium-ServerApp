@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
             @NamedQuery(
                         name="listByPrice", query="SELECT * FROM provider ORDER BY 'price' ASC"
                 ),
-    
+     
 })
 
 @Entity
@@ -49,7 +49,6 @@ public class ProviderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Integer idProvider;
 
     private String email;
 
@@ -71,15 +70,7 @@ public class ProviderEntity implements Serializable {
     public ProviderEntity() {
 
     }
-
-    public Integer getIdProvider() {
-        return idProvider;
-    }
-
-    public void setIdProvider(Integer idProvider) {
-        this.idProvider = idProvider;
-    }
-
+    
     public String getEmail() {
         return email;
     }
