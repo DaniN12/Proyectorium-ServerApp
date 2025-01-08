@@ -31,16 +31,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ruth
  */
 
+
 @NamedQueries({
-        @NamedQuery(
-            name="listCategoriesbyPegi",
-            query="SELECT * from CategoryEntity ORDER by pegi DESC"
-            ),
-        @NamedQuery(
-            name="listCategoriesbyCreationDate",
-            query="SELECT * from CategoryEntity ORDER by creationDate DESC"
-            )        
+    @NamedQuery(
+            name = "listCategoriesbyPegi",
+            query = "SELECT c FROM CategoryEntity c ORDER BY c.pegi ASC"
+    )
+    ,
+    @NamedQuery(
+            name = "listCategoriesbyCreationDate",
+            query = "SELECT c FROM CategoryEntity c ORDER BY c.creationDate DESC"
+    )
 })
+
 @Entity
 @Table(schema = "proyectorium", name = "Category")
 @XmlRootElement
@@ -114,7 +117,6 @@ public class CategoryEntity implements Serializable {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
-
 
     @Override
     public int hashCode() {
