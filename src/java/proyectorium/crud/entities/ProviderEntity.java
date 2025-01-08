@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,9 +29,8 @@ public class ProviderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer idProvider;
 
     private String email;
 
@@ -45,20 +45,12 @@ public class ProviderEntity implements Serializable {
     private Date contactEnd;
 
     private Float price;
-    
-    @OneToMany(cascade = ALL)
+
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     private List<MovieEntity> movies;
 
     public ProviderEntity() {
 
-    }
-
-    public Integer getIdProvider() {
-        return idProvider;
-    }
-
-    public void setIdProvider(Integer idProvider) {
-        this.idProvider = idProvider;
     }
 
     public String getEmail() {
@@ -124,7 +116,6 @@ public class ProviderEntity implements Serializable {
     public void setMovies(List<MovieEntity> movies) {
         this.movies = movies;
     }
-    
 
     @Override
     public int hashCode() {
