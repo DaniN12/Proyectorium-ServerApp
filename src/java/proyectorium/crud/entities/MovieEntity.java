@@ -4,8 +4,10 @@
 package proyectorium.crud.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +21,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,6 +35,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(schema = "proyectorium", name = "movie")
+
+@NamedQueries({
+    @NamedQuery(
+            name = "listByReleaseDate",
+            query = "SELECT m FROM MovieEntity m ORDER BY m.releaseDate ASC"
+    )
+    ,
+    @NamedQuery(
+            name = "listByProvider",
+            query = "SELECT m FROM MovieEntity m WHERE m.provider.name = :provider"
+    )
+    ,
+    @NamedQuery(
+            name = "listByMovieHour",
+            query = "SELECT m FROM MovieEntity m WHERE m.movieHour = :movieHour"
+    )
+})
+
 @XmlRootElement
 public class MovieEntity implements Serializable {
 
@@ -53,14 +75,14 @@ public class MovieEntity implements Serializable {
     @Lob
     private byte[] movieImage;
 
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     private List<TicketEntity> tickets;
 
     @ManyToOne
     @JoinColumn(name = "provider")
     private ProviderEntity provider;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "movie_category", schema = "proyectorium",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
@@ -151,7 +173,7 @@ public class MovieEntity implements Serializable {
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
     }
-      
+
     @Override
     public int hashCode() {
         int hash = 0;

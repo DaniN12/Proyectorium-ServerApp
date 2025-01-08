@@ -23,8 +23,11 @@ import javax.ws.rs.core.MediaType;
 import proyectorium.crud.entities.UserEntity;
 import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
+import proyectorium.crud.exceptions.IncorrectCredentialsException;
 import proyectorium.crud.exceptions.ReadException;
 import proyectorium.crud.exceptions.UpdateException;
+import proyectorium.crud.exceptions.UserAlreadyExistException;
+import proyectorium.crud.exceptions.UserDoesntExistException;
 
 /**
  *
@@ -44,7 +47,7 @@ public class UserEntityFacadeREST extends AbstractFacade<UserEntity> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML})
-    public void create(UserEntity entity) {
+    public void create(UserEntity entity){
         try {
             super.create(entity);
         } catch (CreateException ex) {
@@ -65,7 +68,7 @@ public class UserEntityFacadeREST extends AbstractFacade<UserEntity> {
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Long id) {
+    public void remove(@PathParam("id") Long id) throws UserDoesntExistException, IncorrectCredentialsException{
         try {
             try {
                 super.remove(super.find(id));
@@ -80,7 +83,7 @@ public class UserEntityFacadeREST extends AbstractFacade<UserEntity> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML})
-    public UserEntity find(@PathParam("id") Long id) {
+    public UserEntity find(@PathParam("id") Long id){
         try {
             return super.find(id);
         } catch (ReadException ex) {

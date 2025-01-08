@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +30,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Ruth
  */
+
+
+@NamedQueries({
+    @NamedQuery(
+            name = "listCategoriesbyPegi",
+            query = "SELECT c FROM CategoryEntity c ORDER BY c.pegi ASC"
+    )
+    ,
+    @NamedQuery(
+            name = "listCategoriesbyCreationDate",
+            query = "SELECT c FROM CategoryEntity c ORDER BY c.creationDate DESC"
+    )
+})
+
 @Entity
 @Table(schema = "proyectorium", name = "Category")
 @XmlRootElement
@@ -36,7 +52,7 @@ public class CategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @Lob
@@ -49,9 +65,6 @@ public class CategoryEntity implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Pegi pegi;
-
-    @ManyToMany(mappedBy = "categories")
-    private List<MovieEntity> movies;
 
     public CategoryEntity() {
 
@@ -89,14 +102,6 @@ public class CategoryEntity implements Serializable {
         this.description = description;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public Pegi getPegi() {
         return pegi;
     }
@@ -104,15 +109,14 @@ public class CategoryEntity implements Serializable {
     public void setPegi(Pegi pegi) {
         this.pegi = pegi;
     }
-
-    public List<MovieEntity> getMovies() {
-        return movies;
+  
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setMovies(List<MovieEntity> movies) {
-        this.movies = movies;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
-
 
     @Override
     public int hashCode() {

@@ -49,7 +49,7 @@ public class ProviderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -65,14 +65,14 @@ public class ProviderEntity implements Serializable {
     private Date contactEnd;
 
     private Float price;
-    
+
     @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     private List<MovieEntity> movies;
 
     public ProviderEntity() {
 
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -136,7 +136,6 @@ public class ProviderEntity implements Serializable {
     public void setMovies(List<MovieEntity> movies) {
         this.movies = movies;
     }
-    
 
     @Override
     public int hashCode() {
