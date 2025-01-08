@@ -5,6 +5,7 @@
  */
 package proyectorium.crud.services;
 
+
 import proyectorium.crud.entities.ProviderEntity;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +26,8 @@ import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
 import proyectorium.crud.exceptions.ReadException;
 import proyectorium.crud.exceptions.UpdateException;
+
+import proyectorium.crud.entities.ProviderEntity;
 
 /**
  *
@@ -50,6 +53,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
         } catch (CreateException ex) {
             Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @PUT
@@ -61,6 +65,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
         } catch (UpdateException ex) {
             Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @DELETE

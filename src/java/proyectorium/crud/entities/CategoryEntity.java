@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +30,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Ruth
  */
+
+
+@NamedQueries({
+    @NamedQuery(
+            name = "listCategoriesbyPegi",
+            query = "SELECT c FROM CategoryEntity c ORDER BY c.pegi ASC"
+    )
+    ,
+    @NamedQuery(
+            name = "listCategoriesbyCreationDate",
+            query = "SELECT c FROM CategoryEntity c ORDER BY c.creationDate DESC"
+    )
+})
+
 @Entity
 @Table(schema = "proyectorium", name = "Category")
 @XmlRootElement
