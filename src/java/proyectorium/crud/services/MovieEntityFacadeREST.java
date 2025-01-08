@@ -126,6 +126,43 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
         }
         return null;
     }
+    
+    @GET
+@Path("listByContractInit")
+@Produces({MediaType.APPLICATION_XML})
+public List<MovieEntity> listByContractInit() {
+    try {
+        return getEntityManager().createNamedQuery("listByContractInit", MovieEntity.class).getResultList();
+    } catch (Exception ex) {
+        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
+
+@GET
+@Path("listByContractEnd")
+@Produces({MediaType.APPLICATION_XML})
+public List<MovieEntity> listByContractEnd() {
+    try {
+        return getEntityManager().createNamedQuery("listByContractEnd", MovieEntity.class).getResultList();
+    } catch (Exception ex) {
+        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
+
+@GET
+@Path("listByPrice")
+@Produces({MediaType.APPLICATION_XML})
+public List<MovieEntity> listByPrice() {
+    try {
+        return getEntityManager().createNamedQuery("listByPrice", MovieEntity.class).getResultList();
+    } catch (Exception ex) {
+        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
+
 
     @GET
     @Path("releaseDate")

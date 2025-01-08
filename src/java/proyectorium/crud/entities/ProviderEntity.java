@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +24,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Dani
  */
+
+@NamedQueries({
+    @NamedQuery(
+        name = "listByContractInit", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.contactIn ASC"
+    ),
+    @NamedQuery(
+        name = "listByContractEnd", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.contactEnd DESC"
+    ),
+    @NamedQuery(
+        name = "listByPrice", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.price ASC"
+    )
+})
+
+
+
 @Entity
 @Table(name = "provider", schema = "proyectorium")
 @XmlRootElement

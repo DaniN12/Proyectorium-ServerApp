@@ -109,7 +109,7 @@ public class CategoryEntity implements Serializable {
     public void setPegi(Pegi pegi) {
         this.pegi = pegi;
     }
-
+  
     public Date getCreationDate() {
         return creationDate;
     }
