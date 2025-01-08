@@ -21,7 +21,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import proyectorium.crud.entities.CategoryEntity;
 import proyectorium.crud.entities.MovieEntity;
 import proyectorium.crud.entities.MovieHour;
 import proyectorium.crud.exceptions.CreateException;
@@ -50,8 +52,6 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
     @Consumes({MediaType.APPLICATION_XML})
     public void create(MovieEntity entity) {
         try {
-            //MovieEntity m = new MovieEntity();
-            //em.persist(entity);
             super.create(entity);
         } catch (CreateException ex) {
             Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
@@ -157,7 +157,7 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
                 .setParameter("movieHour", MovieHour.valueOf(movieHour))
                 .getResultList();
     }
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;

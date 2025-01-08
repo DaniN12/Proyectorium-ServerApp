@@ -4,6 +4,7 @@
 package proyectorium.crud.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -39,11 +40,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(
             name = "listByReleaseDate",
             query = "SELECT m FROM MovieEntity m ORDER BY m.releaseDate ASC"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "listByProvider",
             query = "SELECT m FROM MovieEntity m WHERE m.provider.name = :provider"
-    ),
+    )
+    ,
     @NamedQuery(
             name = "listByMovieHour",
             query = "SELECT m FROM MovieEntity m WHERE m.movieHour = :movieHour"
@@ -170,7 +173,7 @@ public class MovieEntity implements Serializable {
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
     }
-      
+
     @Override
     public int hashCode() {
         int hash = 0;
