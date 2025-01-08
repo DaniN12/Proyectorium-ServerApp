@@ -5,7 +5,6 @@
  */
 package proyectorium.crud.services;
 
-
 import proyectorium.crud.entities.ProviderEntity;
 import java.util.List;
 import java.util.logging.Level;
@@ -136,13 +135,8 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     @Path("listByContractInit")
     @Produces({MediaType.APPLICATION_XML})
     public List<ProviderEntity> listByContractInit() {
-        try {
-            TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractInit", ProviderEntity.class);
-            return query.getResultList();
-        } catch (Exception ex) {
-            Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractInit", ProviderEntity.class);
+        return query.getResultList();
     }
 
     // Método para listar por 'contract end'
@@ -150,13 +144,8 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     @Path("listByContractEnd")
     @Produces({MediaType.APPLICATION_XML})
     public List<ProviderEntity> listByContractEnd() {
-        try {
-            TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractEnd", ProviderEntity.class);
-            return query.getResultList();
-        } catch (Exception ex) {
-            Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractEnd", ProviderEntity.class);
+        return query.getResultList();
     }
 
     // Método para listar por 'price'
@@ -164,13 +153,8 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     @Path("listByPrice")
     @Produces({MediaType.APPLICATION_XML})
     public List<ProviderEntity> listByPrice() {
-        try {
-            TypedQuery<ProviderEntity> query = em.createNamedQuery("listByPrice", ProviderEntity.class);
-            return query.getResultList();
-        } catch (Exception ex) {
-            Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listByPrice", ProviderEntity.class);
+        return query.getResultList();
     }
 
     @Override

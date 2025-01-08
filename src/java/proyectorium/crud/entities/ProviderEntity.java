@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,20 +26,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @NamedQueries({
-    
-            @NamedQuery(
-                        name="listByContractInit", query="SELECT * FROM provider ORDER BY 'contract init' ASC"
-                ),
-            
-            @NamedQuery(
-                        name="listByContractEnd", query="SELECT * FROM provider ORDER BY 'contract end' DESC"
-                ),
-            
-            @NamedQuery(
-                        name="listByPrice", query="SELECT * FROM provider ORDER BY 'price' ASC"
-                ),
-     
+    @NamedQuery(
+        name = "listByContractInit", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.contactIn ASC"
+    ),
+    @NamedQuery(
+        name = "listByContractEnd", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.contactEnd DESC"
+    ),
+    @NamedQuery(
+        name = "listByPrice", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.price ASC"
+    )
 })
+
+
 
 @Entity
 @Table(name = "provider", schema = "proyectorium")
@@ -64,7 +66,7 @@ public class ProviderEntity implements Serializable {
 
     private Float price;
     
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     private List<MovieEntity> movies;
 
     public ProviderEntity() {
