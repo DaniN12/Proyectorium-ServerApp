@@ -64,7 +64,7 @@ public class MovieEntity implements Serializable {
 
     private Integer duration;
 
-    private String sinapsis;
+    private String sinopsis;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date releaseDate;
@@ -118,12 +118,12 @@ public class MovieEntity implements Serializable {
         this.duration = duration;
     }
 
-    public String getSinapsis() {
-        return sinapsis;
+    public String getSinopsis() {
+        return sinopsis;
     }
 
-    public void setSinapsis(String sinapsis) {
-        this.sinapsis = sinapsis;
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
 
     public Date getReleaseDate() {

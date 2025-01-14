@@ -34,7 +34,7 @@ import proyectorium.crud.services.AbstractFacade;
 
 /**
  *
- * @author 2dam
+ * @author enzo
  */
 @Stateless
 @Path("proyectorium.crud.entities.movie")
