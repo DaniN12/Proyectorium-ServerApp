@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,24 +28,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(schema = "proyectorium", name = "ticket")
+@NamedQueries({
+    @NamedQuery(
+        name = "listByMovieASC", 
+        query = "SELECT t FROM TicketEntity t ORDER BY t.movie.title ASC"
+    ),
+    @NamedQuery(
+        name = "listByBuyDateASC", 
+        query = "SELECT t FROM TicketEntity t ORDER BY t.buyDate ASC"
+    ),
+    @NamedQuery(
+        name = "listByPriceASC", 
+        query = "SELECT t FROM TicketEntity t ORDER BY t.price ASC"
+    )
+})
+
 @XmlRootElement
 public class TicketEntity implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date buyDate;
-    
+
     private Float price;
-    
+
     private Integer numPeople;
-    
+
     @ManyToOne
     @JoinColumn(name = "Movie")
     private MovieEntity movie;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -52,7 +69,7 @@ public class TicketEntity implements Serializable {
     private byte[] movieImage;
 
     public TicketEntity() {
-        
+
     }
 
     public Integer getId() {
@@ -86,7 +103,7 @@ public class TicketEntity implements Serializable {
     public void setNumPeople(Integer numPeople) {
         this.numPeople = numPeople;
     }
-  
+
     public MovieEntity getMovie() {
         return movie;
     }
@@ -110,7 +127,7 @@ public class TicketEntity implements Serializable {
     public void setMovieImage(byte[] movieImage) {
         this.movieImage = movieImage;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,10 +147,10 @@ public class TicketEntity implements Serializable {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "proyectorium.crud.entities.TicketEntity[ id = " + id + " ]";
     }
-    
+
 }

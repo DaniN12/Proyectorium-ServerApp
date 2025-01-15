@@ -125,9 +125,45 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
         return null;
     }
 
+    @GET
+    @Path("by-movie")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<TicketEntity> listByMovieASC() {
+        try {
+            return em.createNamedQuery("listByMovieASC", TicketEntity.class).getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(TicketEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @GET
+    @Path("by-buy-date")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<TicketEntity> listByBuyDateASC() {
+        try {
+            return em.createNamedQuery("listByBuyDateASC", TicketEntity.class).getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(TicketEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @GET
+    @Path("by-price")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<TicketEntity> listByPriceASC() {
+        try {
+            return em.createNamedQuery("listByPriceASC", TicketEntity.class).getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(TicketEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
