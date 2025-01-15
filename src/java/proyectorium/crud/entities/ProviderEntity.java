@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +24,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Dani
  */
+
+@NamedQueries({
+    @NamedQuery(
+        name = "listByContractInit", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.contractIni ASC"
+    ),
+    @NamedQuery(
+        name = "listByContractEnd", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.contractEnd DESC"
+    ),
+    @NamedQuery(
+        name = "listByPrice", 
+        query = "SELECT p FROM ProviderEntity p ORDER BY p.price ASC"
+    )
+})
+
+
+
 @Entity
 @Table(name = "provider", schema = "proyectorium")
 @XmlRootElement
@@ -39,10 +59,10 @@ public class ProviderEntity implements Serializable {
     private Integer phone;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date contactIn;
+    private Date contractIni;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date contactEnd;
+    private Date contractEnd;
 
     private Float price;
 
@@ -77,20 +97,20 @@ public class ProviderEntity implements Serializable {
         this.phone = phone;
     }
 
-    public Date getContactIn() {
-        return contactIn;
+    public Date getContractIni() {
+        return contractIni;
     }
 
-    public void setContactIn(Date contactIn) {
-        this.contactIn = contactIn;
+    public void setContractIni(Date contractIni) {
+        this.contractIni = contractIni;
     }
 
-    public Date getContactEnd() {
-        return contactEnd;
+    public Date getContractEnd() {
+        return contractEnd;
     }
 
-    public void setContactEnd(Date contactEnd) {
-        this.contactEnd = contactEnd;
+    public void setContractEnd(Date contractEnd) {
+        this.contractEnd = contractEnd;
     }
 
     public Float getPrice() {
