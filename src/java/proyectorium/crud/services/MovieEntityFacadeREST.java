@@ -5,6 +5,7 @@
  */
 package proyectorium.crud.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +20,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import proyectorium.crud.entities.CategoryEntity;
 import proyectorium.crud.entities.MovieEntity;
+import proyectorium.crud.entities.MovieHour;
 import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
 import proyectorium.crud.exceptions.ReadException;
@@ -29,7 +34,7 @@ import proyectorium.crud.services.AbstractFacade;
 
 /**
  *
- * @author 2dam
+ * @author enzo
  */
 @Stateless
 @Path("proyectorium.crud.entities.movie")
@@ -121,10 +126,78 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
         }
         return null;
     }
+    
+    @GET
+@Path("listByContractInit")
+@Produces({MediaType.APPLICATION_XML})
+public List<MovieEntity> listByContractInit() {
+    try {
+        return getEntityManager().createNamedQuery("listByContractInit", MovieEntity.class).getResultList();
+    } catch (Exception ex) {
+        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
 
+@GET
+@Path("listByContractEnd")
+@Produces({MediaType.APPLICATION_XML})
+public List<MovieEntity> listByContractEnd() {
+    try {
+        return getEntityManager().createNamedQuery("listByContractEnd", MovieEntity.class).getResultList();
+    } catch (Exception ex) {
+        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
+
+@GET
+@Path("listByPrice")
+@Produces({MediaType.APPLICATION_XML})
+public List<MovieEntity> listByPrice() {
+    try {
+        return getEntityManager().createNamedQuery("listByPrice", MovieEntity.class).getResultList();
+    } catch (Exception ex) {
+        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
+
+
+    @GET
+    @Path("releaseDate")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<MovieEntity> listByReleaseDate(@QueryParam("releaseDate") String releaseDate) {
+        if (releaseDate == null || releaseDate.isEmpty()) {
+            throw new IllegalArgumentException("Release date must be provided.");
+        }
+
+        return em.createNamedQuery("listByReleaseDate", MovieEntity.class)
+                .setParameter("releaseDate", releaseDate)
+                .getResultList();
+    }
+
+    @GET
+    @Path("provider/{provider}")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<MovieEntity> listByProvider(@PathParam("provider") String provider) {
+        return em.createNamedQuery("listByProvider", MovieEntity.class)
+                .setParameter("provider", provider)
+                .getResultList();
+    }
+
+    @GET
+    @Path("movieHour/{movieHour}")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<MovieEntity> listByMovieHour(@PathParam("movieHour") String movieHour) {
+        return em.createNamedQuery("listByMovieHour", MovieEntity.class)
+                .setParameter("movieHour", MovieHour.valueOf(movieHour))
+                .getResultList();
+    }
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

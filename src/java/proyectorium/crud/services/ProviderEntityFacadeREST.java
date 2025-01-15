@@ -25,6 +25,9 @@ import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
 import proyectorium.crud.exceptions.ReadException;
 import proyectorium.crud.exceptions.UpdateException;
+import javax.persistence.TypedQuery;
+
+import proyectorium.crud.entities.ProviderEntity;
 
 /**
  *
@@ -50,6 +53,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
         } catch (CreateException ex) {
             Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @PUT
@@ -61,6 +65,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
         } catch (UpdateException ex) {
             Logger.getLogger(ProviderEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @DELETE
@@ -125,9 +130,35 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
         return null;
     }
 
+    // Método para listar por 'contract init'
+    @GET
+    @Path("listByContractInit")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<ProviderEntity> listByContractInit() {
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractInit", ProviderEntity.class);
+        return query.getResultList();
+    }
+
+    // Método para listar por 'contract end'
+    @GET
+    @Path("listByContractEnd")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<ProviderEntity> listByContractEnd() {
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractEnd", ProviderEntity.class);
+        return query.getResultList();
+    }
+
+    // Método para listar por 'price'
+    @GET
+    @Path("listByPrice")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<ProviderEntity> listByPrice() {
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listByPrice", ProviderEntity.class);
+        return query.getResultList();
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
 }
