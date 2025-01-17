@@ -57,6 +57,10 @@ public class UserEntity implements Serializable {
 
     @OneToMany(mappedBy = "user")
     private List<TicketEntity> tickets;
+    
+    public UserEntity(){
+        
+    }
 
     public Long getId() {
         return id;
