@@ -24,23 +24,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Dani
  */
-
 @NamedQueries({
     @NamedQuery(
-        name = "listByContractInit", 
-        query = "SELECT p FROM ProviderEntity p ORDER BY p.contractIni ASC"
-    ),
+            name = "listByContractInit",
+            query = "SELECT p FROM ProviderEntity p ORDER BY p.contractIni ASC"
+    )
+    ,
+    
     @NamedQuery(
-        name = "listByContractEnd", 
-        query = "SELECT p FROM ProviderEntity p ORDER BY p.contractEnd DESC"
-    ),
+    name = "listActiveContracts",
+    query = "SELECT p FROM ProviderEntity p WHERE FUNCTION('DATE', p.contractIni) <= CURRENT_DATE AND FUNCTION('DATE', p.contractEnd) >= CURRENT_DATE ORDER BY p.contractIni ASC"
+    )
+    ,
     @NamedQuery(
-        name = "listByPrice", 
-        query = "SELECT p FROM ProviderEntity p ORDER BY p.price ASC"
+            name = "listByContractEnd",
+            query = "SELECT p FROM ProviderEntity p ORDER BY p.contractEnd DESC"
+    )
+    ,
+    @NamedQuery(
+            name = "listByPrice",
+            query = "SELECT p FROM ProviderEntity p ORDER BY p.price ASC"
     )
 })
-
-
 
 @Entity
 @Table(name = "provider", schema = "proyectorium")

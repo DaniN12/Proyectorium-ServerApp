@@ -156,6 +156,15 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
         TypedQuery<ProviderEntity> query = em.createNamedQuery("listByPrice", ProviderEntity.class);
         return query.getResultList();
     }
+    
+    //Método para lista por contratos Activos
+    @GET
+    @Path("listByActiveContract")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<ProviderEntity> listActiveContracts() {
+        TypedQuery<ProviderEntity> query = em.createNamedQuery("listActiveContracts", ProviderEntity.class);
+        return query.getResultList();
+    }
 
     @Override
     protected EntityManager getEntityManager() {
