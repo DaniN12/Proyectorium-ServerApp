@@ -7,6 +7,10 @@ package proyectorium.crud.services;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import proyectorium.crud.exceptions.CreateException;
+import proyectorium.crud.exceptions.DeleteException;
+import proyectorium.crud.exceptions.ReadException;
+import proyectorium.crud.exceptions.UpdateException;
 
 /**
  *
@@ -23,29 +27,29 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+    public void create(T entity) throws CreateException{
         getEntityManager().persist(entity);
     }
 
-    public void edit(T entity) {
+    public void edit(T entity) throws UpdateException{
         getEntityManager().merge(entity);
     }
 
-    public void remove(T entity) {
+    public void remove(T entity) throws DeleteException{
         getEntityManager().remove(getEntityManager().merge(entity));
     }
 
-    public T find(Object id) {
+    public T find(Object id) throws ReadException{
         return getEntityManager().find(entityClass, id);
     }
 
-    public List<T> findAll() {
+    public List<T> findAll() throws ReadException{
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findRange(int[] range) {
+    public List<T> findRange(int[] range) throws ReadException{
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
@@ -54,7 +58,7 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-    public int count() {
+    public int count() throws ReadException{
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));

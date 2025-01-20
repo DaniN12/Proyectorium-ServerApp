@@ -23,6 +23,7 @@ public class CustomerEntity extends UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer numTickets;
+    
 
     public Integer getNumTickets() {
         return numTickets;
