@@ -5,10 +5,12 @@
  */
 package proyectorium.crud.services;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -126,43 +128,6 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
         }
         return null;
     }
-    
-    @GET
-@Path("listByContractInit")
-@Produces({MediaType.APPLICATION_XML})
-public List<MovieEntity> listByContractInit() {
-    try {
-        return getEntityManager().createNamedQuery("listByContractInit", MovieEntity.class).getResultList();
-    } catch (Exception ex) {
-        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
-    }
-}
-
-@GET
-@Path("listByContractEnd")
-@Produces({MediaType.APPLICATION_XML})
-public List<MovieEntity> listByContractEnd() {
-    try {
-        return getEntityManager().createNamedQuery("listByContractEnd", MovieEntity.class).getResultList();
-    } catch (Exception ex) {
-        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
-    }
-}
-
-@GET
-@Path("listByPrice")
-@Produces({MediaType.APPLICATION_XML})
-public List<MovieEntity> listByPrice() {
-    try {
-        return getEntityManager().createNamedQuery("listByPrice", MovieEntity.class).getResultList();
-    } catch (Exception ex) {
-        Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
-    }
-}
-
 
     @GET
     @Path("releaseDate")
@@ -194,7 +159,46 @@ public List<MovieEntity> listByPrice() {
                 .setParameter("movieHour", MovieHour.valueOf(movieHour))
                 .getResultList();
     }
-    
+
+    @GET
+    @Path("moviesByCategories")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<MovieEntity> listMoviesByCategories(
+            @QueryParam("categories") String categoriesParam,
+            @QueryParam("categoryCount") Long categoryCount) {
+
+        // Validar que los parámetros no sean nulos
+        if (categoriesParam == null || categoriesParam.trim().isEmpty() || categoryCount == null) {
+            throw new WebApplicationException("Both 'categories' and 'categoryCount' must be provided", 400);
+        }
+
+        // Separar las categorías por comas y eliminar espacios en blanco alrededor
+        List<String> categories = Arrays.stream(categoriesParam.split(" "))
+                .map(String::trim)
+                .collect(Collectors.toList());
+
+        System.out.println("Received Categories: " + categories);
+        System.out.println("Received Category Count: " + categoryCount);
+
+        try {
+            String queryStr = "SELECT m FROM MovieEntity m JOIN m.categories c "
+                    + "WHERE c.name IN :categories "
+                    + "GROUP BY m.id HAVING COUNT(DISTINCT c.name) = :categoryCount";
+
+            List<MovieEntity> result = em.createQuery(queryStr, MovieEntity.class)
+                    .setParameter("categories", categories)
+                    .setParameter("categoryCount", categoryCount)
+                    .getResultList();
+
+            System.out.println("Number of Movies Found: " + result.size());
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new WebApplicationException("Error executing the query: " + e.getMessage(), 500);
+        }
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;

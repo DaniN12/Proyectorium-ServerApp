@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(schema = "proyectorium", name = "movie")
-/*
 @NamedQueries({
     @NamedQuery(
             name = "listByReleaseDate",
@@ -51,7 +50,7 @@ import javax.xml.bind.annotation.XmlRootElement;
             name = "listByMovieHour",
             query = "SELECT m FROM MovieEntity m WHERE m.movieHour = :movieHour"
     )
-})*/
+})
 
 @XmlRootElement
 public class MovieEntity implements Serializable {
@@ -79,7 +78,7 @@ public class MovieEntity implements Serializable {
     private List<TicketEntity> tickets;
 
     @ManyToOne
-    @JoinColumn(name = "provider")
+    @JoinColumn(name = "provider_id")
     private ProviderEntity provider;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -91,6 +90,7 @@ public class MovieEntity implements Serializable {
     private List<CategoryEntity> categories;
 
     public MovieEntity() {
+        this.provider = new ProviderEntity();
 
     }
 
