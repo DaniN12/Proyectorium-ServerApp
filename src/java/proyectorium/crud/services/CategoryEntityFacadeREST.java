@@ -125,7 +125,6 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
         return null;
     }
 
-    
     @GET
     @Path("listCategoriesbyPegi")
     @Produces({MediaType.APPLICATION_XML})
@@ -144,6 +143,19 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
     public List<CategoryEntity> listCategoriesbyCreationDate() {
         try {
             return em.createNamedQuery("listCategoriesbyCreationDate", CategoryEntity.class).getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @GET
+    @Path("listCategoriesByDescriptionAndPegi18")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<CategoryEntity> listCategoriesByDescriptionAndPegi18() {
+        try {
+            return em.createNamedQuery("findCategoriesByDescriptionLengthAndPegi18", CategoryEntity.class)
+                    .getResultList();
         } catch (Exception ex) {
             Logger.getLogger(CategoryEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
             return null;

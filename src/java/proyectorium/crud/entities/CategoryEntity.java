@@ -30,8 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Ruth
  */
-
-
 @NamedQueries({
     @NamedQuery(
             name = "listCategoriesbyPegi",
@@ -41,6 +39,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(
             name = "listCategoriesbyCreationDate",
             query = "SELECT c FROM CategoryEntity c ORDER BY c.creationDate DESC"
+    )
+    ,
+    @NamedQuery(
+            name = "findCategoriesByDescriptionLengthAndPegi18",
+            query = "SELECT c FROM CategoryEntity c WHERE LENGTH(c.description) < 50 AND c.pegi = proyectorium.crud.entities.Pegi.PEGI_18 ORDER BY c.name"
     )
 })
 
@@ -109,7 +112,7 @@ public class CategoryEntity implements Serializable {
     public void setPegi(Pegi pegi) {
         this.pegi = pegi;
     }
-  
+
     public Date getCreationDate() {
         return creationDate;
     }
