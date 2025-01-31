@@ -46,7 +46,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(ProviderEntity entity) {
         try {
             super.create(entity);
@@ -58,7 +58,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Long id, ProviderEntity entity) {
         try {
             super.edit(entity);
@@ -84,7 +84,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public ProviderEntity find(@PathParam("id") Long id) {
         try {
             return super.find(id);
@@ -96,7 +96,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<ProviderEntity> findAll() {
         try {
             return super.findAll();
@@ -108,7 +108,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<ProviderEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         try {
             return super.findRange(new int[]{from, to});
@@ -133,7 +133,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     // Método para listar por 'contract init'
     @GET
     @Path("listByContractInit")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<ProviderEntity> listByContractInit() {
         TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractInit", ProviderEntity.class);
         return query.getResultList();
@@ -142,7 +142,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     // Método para listar por 'contract end'
     @GET
     @Path("listByContractEnd")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<ProviderEntity> listByContractEnd() {
         TypedQuery<ProviderEntity> query = em.createNamedQuery("listByContractEnd", ProviderEntity.class);
         return query.getResultList();
@@ -151,7 +151,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     // Método para listar por 'price'
     @GET
     @Path("listByPrice")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<ProviderEntity> listByPrice() {
         TypedQuery<ProviderEntity> query = em.createNamedQuery("listByPrice", ProviderEntity.class);
         return query.getResultList();
@@ -160,7 +160,7 @@ public class ProviderEntityFacadeREST extends AbstractFacade<ProviderEntity> {
     //Método para lista por contratos Activos
     @GET
     @Path("listByActiveContract")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<ProviderEntity> listActiveContracts() {
         TypedQuery<ProviderEntity> query = em.createNamedQuery("listActiveContracts", ProviderEntity.class);
         return query.getResultList();
