@@ -43,7 +43,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(TicketEntity entity) {
         try {
             super.create(entity);
@@ -54,7 +54,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, TicketEntity entity) {
         try {
             super.edit(entity);
@@ -79,7 +79,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public TicketEntity find(@PathParam("id") Integer id) {
         try {
             return super.find(id);
@@ -91,7 +91,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<TicketEntity> findAll() {
         try {
             return super.findAll();
@@ -103,7 +103,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<TicketEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         try {
             return super.findRange(new int[]{from, to});
@@ -127,7 +127,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @GET
     @Path("by-movie")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<TicketEntity> listByMovieASC() {
         try {
             return em.createNamedQuery("listByMovieASC", TicketEntity.class).getResultList();
@@ -139,7 +139,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @GET
     @Path("by-buy-date")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<TicketEntity> listByBuyDateASC() {
         try {
             return em.createNamedQuery("listByBuyDateASC", TicketEntity.class).getResultList();
@@ -151,7 +151,7 @@ public class TicketEntityFacadeREST extends AbstractFacade<TicketEntity> {
 
     @GET
     @Path("by-price")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<TicketEntity> listByPriceASC() {
         try {
             return em.createNamedQuery("listByPriceASC", TicketEntity.class).getResultList();

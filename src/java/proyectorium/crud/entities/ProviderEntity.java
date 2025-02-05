@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     
     @NamedQuery(
-    name = "listActiveContracts",
-    query = "SELECT p FROM ProviderEntity p WHERE FUNCTION('DATE', p.contractIni) <= CURRENT_DATE AND FUNCTION('DATE', p.contractEnd) >= CURRENT_DATE ORDER BY p.contractIni ASC"
+            name = "listActiveContracts",
+            query = "SELECT p FROM ProviderEntity p WHERE FUNCTION('DATE', p.contractIni) <= CURRENT_DATE AND FUNCTION('DATE', p.contractEnd) >= CURRENT_DATE ORDER BY p.contractIni ASC"
     )
     ,
     @NamedQuery(
@@ -71,8 +71,8 @@ public class ProviderEntity implements Serializable {
 
     private Float price;
 
-    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
-    private List<MovieEntity> movies;
+    @OneToMany(mappedBy = "provider", cascade = ALL, fetch = FetchType.EAGER)
+    private transient List<MovieEntity> movies;
 
     public ProviderEntity() {
 

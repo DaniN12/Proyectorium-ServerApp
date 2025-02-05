@@ -4,10 +4,8 @@
 package proyectorium.crud.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -90,8 +88,22 @@ public class MovieEntity implements Serializable {
     private List<CategoryEntity> categories;
 
     public MovieEntity() {
-        this.provider = new ProviderEntity();
 
+        this.title = "";
+        this.duration = 0;
+        this.sinopsis = "";
+        this.releaseDate = null;
+        this.movieHour = MovieHour.HOUR_16;
+        this.provider = null;
+    }
+
+    public MovieEntity(String title, Integer duration, String sinopsis, Date releaseDate, MovieHour movieHour, ProviderEntity provider) {
+        this.title = title;
+        this.duration = duration;
+        this.sinopsis = sinopsis;
+        this.releaseDate = releaseDate;
+        this.movieHour = movieHour;
+        this.provider = provider;
     }
 
     public Integer getId() {

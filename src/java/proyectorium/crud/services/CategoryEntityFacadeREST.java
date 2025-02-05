@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -21,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import proyectorium.crud.entities.CategoryEntity;
+import proyectorium.crud.entities.MovieEntity;
 import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
 import proyectorium.crud.exceptions.ReadException;
@@ -43,7 +45,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(CategoryEntity entity) {
         try {
             super.create(entity);
@@ -54,7 +56,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, CategoryEntity entity) {
         try {
             super.edit(entity);
@@ -67,19 +69,26 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
         try {
-            try {
-                super.remove(super.find(id));
-            } catch (DeleteException ex) {
-                Logger.getLogger(CategoryEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            CategoryEntity category = super.find(id);
+
+            if (category != null) {
+                // Eliminar relaciones en la tabla intermedia movie_category
+                em.createNativeQuery("DELETE FROM proyectorium.movie_category WHERE category_id = ?")
+                        .setParameter(1, id)
+                        .executeUpdate();
+
+                // Ahora eliminamos la categoría
+                super.remove(category);
             }
-        } catch (ReadException ex) {
+        } catch (DeleteException | ReadException ex) {
             Logger.getLogger(CategoryEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            throw new InternalServerErrorException("Error deleting category: " + ex.getMessage());
         }
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public CategoryEntity find(@PathParam("id") Integer id) {
         try {
             return super.find(id);
@@ -91,7 +100,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<CategoryEntity> findAll() {
         try {
             return super.findAll();
@@ -103,7 +112,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML,})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<CategoryEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         try {
             return super.findRange(new int[]{from, to});
@@ -127,7 +136,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @GET
     @Path("listCategoriesbyPegi")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<CategoryEntity> listCategoriesbyPegi() {
         try {
             return em.createNamedQuery("listCategoriesbyPegi", CategoryEntity.class).getResultList();
@@ -139,7 +148,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @GET
     @Path("listCategoriesbyCreationDate")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<CategoryEntity> listCategoriesbyCreationDate() {
         try {
             return em.createNamedQuery("listCategoriesbyCreationDate", CategoryEntity.class).getResultList();
@@ -151,7 +160,7 @@ public class CategoryEntityFacadeREST extends AbstractFacade<CategoryEntity> {
 
     @GET
     @Path("listCategoriesByDescriptionAndPegi18")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<CategoryEntity> listCategoriesByDescriptionAndPegi18() {
         try {
             return em.createNamedQuery("findCategoriesByDescriptionLengthAndPegi18", CategoryEntity.class)

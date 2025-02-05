@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -28,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 import proyectorium.crud.entities.CategoryEntity;
 import proyectorium.crud.entities.MovieEntity;
 import proyectorium.crud.entities.MovieHour;
+import proyectorium.crud.entities.ProviderEntity;
 import proyectorium.crud.exceptions.CreateException;
 import proyectorium.crud.exceptions.DeleteException;
 import proyectorium.crud.exceptions.ReadException;
@@ -51,23 +53,25 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(MovieEntity entity) {
         try {
             super.create(entity);
         } catch (CreateException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, MovieEntity entity) {
         try {
             super.edit(entity);
         } catch (UpdateException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
     }
 
@@ -77,44 +81,45 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
         try {
             super.remove(super.find(id));
         } catch (DeleteException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public MovieEntity find(@PathParam("id") Integer id) {
         try {
             return super.find(id);
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
-        return null;
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<MovieEntity> findAll() {
         try {
             return super.findAll();
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
-        return null;
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<MovieEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         try {
             return super.findRange(new int[]{from, to});
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
-        return null;
     }
 
     @GET
@@ -124,27 +129,22 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
         try {
             return String.valueOf(super.count());
         } catch (ReadException ex) {
-            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieEntityFacadeREST.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }
-        return null;
     }
 
     @GET
     @Path("releaseDate")
-    @Produces({MediaType.APPLICATION_XML})
-    public List<MovieEntity> listByReleaseDate(@QueryParam("releaseDate") String releaseDate) {
-        if (releaseDate == null || releaseDate.isEmpty()) {
-            throw new IllegalArgumentException("Release date must be provided.");
-        }
-
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<MovieEntity> listByReleaseDate() {
         return em.createNamedQuery("listByReleaseDate", MovieEntity.class)
-                .setParameter("releaseDate", releaseDate)
                 .getResultList();
     }
 
     @GET
     @Path("provider/{provider}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<MovieEntity> listByProvider(@PathParam("provider") String provider) {
         return em.createNamedQuery("listByProvider", MovieEntity.class)
                 .setParameter("provider", provider)
@@ -153,7 +153,7 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
 
     @GET
     @Path("movieHour/{movieHour}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<MovieEntity> listByMovieHour(@PathParam("movieHour") String movieHour) {
         return em.createNamedQuery("listByMovieHour", MovieEntity.class)
                 .setParameter("movieHour", MovieHour.valueOf(movieHour))
@@ -162,7 +162,7 @@ public class MovieEntityFacadeREST extends AbstractFacade<MovieEntity> {
 
     @GET
     @Path("moviesByCategories")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<MovieEntity> listMoviesByCategories(
             @QueryParam("categories") String categoriesParam,
             @QueryParam("categoryCount") Long categoryCount) {
